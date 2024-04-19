@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/screens/login_screen.dart';
 import 'package:flutter_chat_app/screens/registration_screen.dart';
-
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class WelcomeScreen extends StatefulWidget {
-
   static String id = "welcome_screen";
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin{
-
-  late AnimationController  controller;
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
   late Animation animation;
 
   @override
@@ -21,15 +20,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
     super.initState();
     controller = AnimationController(
       duration: Duration(seconds: 1),
-      vsync:this,
+      vsync: this,
     );
-    
+
     animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
 
     controller.forward();
     controller.addListener(() {
-      setState(() {
-      });
+      setState(() {});
       print(animation.value);
     });
   }
@@ -50,16 +48,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProvider
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: animation.value*100,
+                    height: animation.value * 100,
                   ),
                 ),
-                Text(
-                  'Flash Chat',
-                  style: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
+                AnimatedTextKit(animatedTexts: [
+                  TypewriterAnimatedText(
+                    'Flash Chat',
+                    textStyle: TextStyle(
+                      fontSize: 45.0,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black,
+                    ),
+                  )
+                ]),
               ],
             ),
             SizedBox(
