@@ -3,6 +3,8 @@ import 'package:flutter_chat_app/screens/login_screen.dart';
 import 'package:flutter_chat_app/screens/registration_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
+import '../components/rounded_button.dart';
+
 class WelcomeScreen extends StatefulWidget {
   static String id = "welcome_screen";
 
@@ -66,26 +68,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             SizedBox(
               height: 48.0,
             ),
-            RoundedButton(),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to registration screen.
-                    Navigator.pushNamed(context, RegistrationScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
-              ),
-            ),
+            RoundedButton('Login', Colors.lightBlueAccent,(){
+              Navigator.pushNamed(context, LoginScreen.id);
+            }),
+            RoundedButton('Register', Colors.blueAccent,(){
+              Navigator.pushNamed(context, RegistrationScreen.id);
+            }),
           ],
         ),
       ),
@@ -93,31 +81,3 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   }
 }
 
-class RoundedButton extends StatelessWidget {
-
-  RoundedButton(this.title, this.color, @required this.onPressed);
-
-  final Color color;
-  final String title;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0),
-      child: Material(
-        elevation: 5.0,
-        color: color,
-        borderRadius: BorderRadius.circular(30.0),
-        child: MaterialButton(
-          onPressed: onPressed,
-          minWidth: 200.0,
-          height: 42.0,
-          child: Text(
-            title,
-          ),
-        ),
-      ),
-    );
-  }
-}
