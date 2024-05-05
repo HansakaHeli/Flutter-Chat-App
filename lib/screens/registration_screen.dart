@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/components/rounded_button.dart';
 
-
+//comment
 class RegistrationScreen extends StatefulWidget {
 
   static String id = "registration_screen";
