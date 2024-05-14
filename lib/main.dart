@@ -19,10 +19,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(
-        textTheme: TextTheme(
-          bodyText1: TextStyle(color: Colors.black54),
-        ),
+      // theme: ThemeData.dark().copyWith(
+      //   textTheme: TextTheme(
+      //     bodyText1: TextStyle(color: Colors.black54),
+      //   ),
+      // ),
+      theme: ThemeData(
+        primaryColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.white, // Adjust this color
       ),
       initialRoute: WelcomeScreen.id,
       routes: {

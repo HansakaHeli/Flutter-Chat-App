@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
 
@@ -13,10 +13,10 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
 
-  // Create a instance of FirebaseAuth
-  final _auth = FirebaseAuth.instance;
-
+  final _auth = FirebaseAuth.instance; // Create a instance of FirebaseAuth
+  FirebaseFirestore firestore = FirebaseFirestore.instance; // Create a instance of FireStore
   User? loggedInUser;
+  String? messageText;
 
   @override
   void initState() {
@@ -37,8 +37,6 @@ class _ChatScreenState extends State<ChatScreen> {
       print(e);
     }
 
-
-
   }
 
 
@@ -52,6 +50,9 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: Icon(Icons.close),
               onPressed: () {
                 //Implement logout functionality
+                _auth.signOut();
+                Navigator.pop(context);
+
               }),
         ],
         title: Text('⚡️Chat'),
@@ -71,19 +72,27 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: TextField(
                       onChanged: (value) {
                         //Do something with the user input.
+                        messageText = value;
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
-                  // FlatButton(
-                  //   onPressed: () {
-                  //     //Implement send functionality.
-                  //   },
-                  //   child: Text(
-                  //     'Send',
-                  //     style: kSendButtonTextStyle,
-                  //   ),
-                  // ),
+                  TextButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+                    ),
+                    onPressed: () {
+
+                      // Add message to the firestore
+                      CollectionReference msg = firestore.collection('messages');
+                      msg.add({
+                        'text': messageText,
+                        'sender': loggedInUser?.email,
+                      });
+                      
+                    },
+                    child: Text('Send'),
+                  )
                 ],
               ),
             ),

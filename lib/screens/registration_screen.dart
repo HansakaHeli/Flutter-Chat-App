@@ -68,10 +68,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 email = value;
               },
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black),
+              //style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 hintText: 'Enter your email',
-                hintStyle: TextStyle(color: Colors.grey),
+                //hintStyle: TextStyle(color: Colors.grey),
                 contentPadding:
                 EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 border: OutlineInputBorder(
@@ -97,10 +97,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               },
               obscureText: true, // texts becomes dots, like password
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black),
+              //style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 hintText: 'Enter your password',
-                hintStyle: TextStyle(color: Colors.grey),
+                //hintStyle: TextStyle(color: Colors.grey),
                 contentPadding:
                 EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 border: OutlineInputBorder(
