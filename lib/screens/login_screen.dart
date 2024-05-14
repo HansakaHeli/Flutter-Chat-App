@@ -10,6 +10,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  late String email;
+  late String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +37,13 @@ class _LoginScreenState extends State<LoginScreen> {
             TextField(
               onChanged: (value) {
                 //Do something with the user input.
+                email = value;
               },
+              textAlign: TextAlign.center,
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 hintText: 'Enter your email',
-                hintStyle: TextStyle(color: Colors.black),
+                hintStyle: TextStyle(color: Colors.grey),
                 contentPadding:
                 EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 border: OutlineInputBorder(
@@ -61,11 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
             TextField(
               onChanged: (value) {
                 //Do something with the user input.
+                password = value;
               },
+              obscureText: true, // texts becomes dots, like password
+              textAlign: TextAlign.center,
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 hintText: 'Enter your password.',
-                hintStyle: TextStyle(color: Colors.black),
+                hintStyle: TextStyle(color: Colors.grey),
                 contentPadding:
                 EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 border: OutlineInputBorder(

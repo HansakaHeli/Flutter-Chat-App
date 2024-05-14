@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_app/components/rounded_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_chat_app/screens/chat_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-//cc
+
 class RegistrationScreen extends StatefulWidget {
 
   static String id = "registration_screen";
@@ -11,6 +14,34 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+
+  late String email;
+  late String password;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize Firebase when the screen is first created
+    print("Call ininstate");
+    initFirebase();
+  }
+
+  // Initialize Firebase
+  void initFirebase()  async{
+    print("calling initFirebase");
+    await Firebase.initializeApp(
+        options: FirebaseOptions(
+          apiKey: 'AIzaSyCq7qJPKDIzK8gq8ZUoKI6uyNHyN3P7zVs',
+          appId: '1:87105101281:android:a8d9d34a3aa22560b106a0',
+          messagingSenderId: '87105101281',
+          projectId: 'flash-chat-7c511'
+          // storageBucket: 'myapp-b9yt18.appspot.com',
+          // These are come form gogle-services.json file
+          // look -> https://www.youtube.com/watch?v=_M-GLwuWfoM
+        )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,11 +65,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             TextField(
               onChanged: (value) {
                 //Do something with the user input.
+                email = value;
               },
+              textAlign: TextAlign.center,
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 hintText: 'Enter your email',
-                hintStyle: TextStyle(color: Colors.black),
+                hintStyle: TextStyle(color: Colors.grey),
                 contentPadding:
                 EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 border: OutlineInputBorder(
@@ -60,11 +93,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             TextField(
               onChanged: (value) {
                 //Do something with the user input.
+                password = value;
               },
+              obscureText: true, // texts becomes dots, like password
+              textAlign: TextAlign.center,
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
                 hintText: 'Enter your password',
-                hintStyle: TextStyle(color: Colors.black),
+                hintStyle: TextStyle(color: Colors.grey),
                 contentPadding:
                 EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 border: OutlineInputBorder(
@@ -83,7 +119,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             SizedBox(
               height: 24.0,
             ),
-            RoundedButton('Register',Colors.blueAccent,(){
+            RoundedButton('Register',Colors.blueAccent,() async{
+              // print(email);
+              // print(password);
+
+              // Register new User
+              try{
+                //final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+                //FirebaseAuth auth = FirebaseAuth.instance;
+
+                UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                    email: email,
+                    password: password
+                );
+
+                Navigator.pushNamed(context, ChatScreen.id);
+
+                // if(newUser != null){
+                //   Navigator.pushNamed(context, ChatScreen.id);
+                // }
+              }catch(e){
+                print(e);
+              }
+
 
             }),
           ],
