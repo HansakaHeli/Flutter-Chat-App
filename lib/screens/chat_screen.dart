@@ -39,6 +39,28 @@ class _ChatScreenState extends State<ChatScreen> {
 
   }
 
+  // Get onetime messages form firebase
+  // void getMessages() async{
+  //
+  //   QuerySnapshot messages = await firestore.collection('messages').get();
+  //   // Access the documents in querySnapshot.docs
+  //   for (QueryDocumentSnapshot message in messages.docs) {
+  //     // Access data for each document using doc.data()
+  //     print(message.data());
+  //   }
+  // }
+
+  // Get realtime messages form firebase
+  void messagesStrem() async{
+
+    await for (var snapshot in firestore.collection("messages").snapshots()){
+      for (var messsage in snapshot.docs){
+        print(messsage.data());
+      }
+    }
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +72,10 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: Icon(Icons.close),
               onPressed: () {
                 //Implement logout functionality
-                _auth.signOut();
-                Navigator.pop(context);
+                // _auth.signOut();
+                // Navigator.pop(context);
+
+                messagesStrem();
 
               }),
         ],
